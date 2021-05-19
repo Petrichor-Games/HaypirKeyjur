@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
+    public AudioSource audioSource;
+    public AudioClip clip;
+    private GameObject birOncekiObj;
+    public GameObject camera;
+
     private Rigidbody rb;
     [SerializeField] float movementSpeed;
     [SerializeField] float controlSpeed;
@@ -34,7 +39,15 @@ public class playerController : MonoBehaviour
     {
         if (coll.collider.CompareTag("platform"))
         {
-            rb.AddForce(Vector3.up * 10, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 13, ForceMode.Impulse);
+            audioSource.PlayOneShot(clip, 1f);
+            if (birOncekiObj!=coll.collider.gameObject)
+            {
+                camera.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y + 2f, camera.transform.position.z);
+            }
+
+            
+            birOncekiObj = coll.collider.gameObject;
         }
     }
 }
