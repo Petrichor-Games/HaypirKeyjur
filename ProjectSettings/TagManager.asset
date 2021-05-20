@@ -7,6 +7,7 @@ TagManager:
   - platform
   - ball
   - PARA
+  - olmePlatformu
   layers:
   - Default
   - TransparentFX

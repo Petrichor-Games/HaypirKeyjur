@@ -39,6 +39,8 @@ public class playerController : MonoBehaviour
 
     private platformCreatorManager pCM;
     private float bironcekiY;
+    private GameObject ikiOnceki;
+    public GameObject olmePlatformu;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,16 @@ public class playerController : MonoBehaviour
         skorYazi = GameObject.Find("Yazi").GetComponent<Text>();
     }
 
+    private void FixedUpdate()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            touchPosX += Input.GetAxis("Mouse X") * controlSpeed * Time.fixedDeltaTime;
+            transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
+
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -56,12 +68,7 @@ public class playerController : MonoBehaviour
         skorYazi.text = "PARA: " + paraSayisi.ToString() +"   Platform : " +DegdigiPlatform.ToString();
         
 
-        if (Input.GetMouseButton(0))
-        {
-            touchPosX += Input.GetAxis("Mouse X") * controlSpeed * Time.fixedDeltaTime;
-            transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
-
-        }
+        
         //t += 0.5f * Time.deltaTime;
 
         if (transform.position.y < -10f)
@@ -123,13 +130,26 @@ public class playerController : MonoBehaviour
 
 
                 pCM.yeniPlatfromEkle();
+
+                if(ikiOnceki != null)
+                {
+                    Instantiate(olmePlatformu, ikiOnceki.transform.position, Quaternion.identity);
+                    Destroy(ikiOnceki);
+
+                    
+                }
+                ikiOnceki = birOncekiObj;
+
             }
 
 
             birOncekiObj = coll.collider.gameObject;
         }
 
-       
+       if(coll.collider.CompareTag("olmePlatformu"))
+        {
+            Destroy(GameObject.Find("Player"));
+        }
     }
 
     private void OnTriggerEnter(Collider other)

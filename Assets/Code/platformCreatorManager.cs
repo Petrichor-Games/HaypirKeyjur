@@ -17,6 +17,7 @@ public class platformCreatorManager : MonoBehaviour
     
     
     
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +41,7 @@ public class platformCreatorManager : MonoBehaviour
     public void yeniPlatfromEkle()
     {
         platformSayisi++;
-        var yeniTransform = new Vector3(Random.Range(-1.2f, 3f), birOnceki.y + 2f, birOnceki.z);
+        var yeniTransform = new Vector3(Random.Range(-1f, 3.3f), birOnceki.y + 2f, birOnceki.z);
         var asd = Instantiate(platformPrefab, yeniTransform, Quaternion.identity);
         birOnceki = yeniTransform;
         if (platformSayisi %  5 == 0)
