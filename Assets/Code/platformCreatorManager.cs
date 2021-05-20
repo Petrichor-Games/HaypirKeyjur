@@ -33,9 +33,9 @@ public class platformCreatorManager : MonoBehaviour
     public void yeniPlatfromEkle()
     {
         Vector3 yeniTransform;
-        yeniTransform = new Vector3(Random.Range(-2f, 2f), birOnceki.y + 2f, birOnceki.z);
+        yeniTransform = new Vector3(Random.Range(-1.2f, 3f), birOnceki.y + 2f, birOnceki.z);
         var asd = Instantiate(platformPrefab, yeniTransform, Quaternion.identity);
         birOnceki = yeniTransform;
-        Destroy(asd,15f);
+        Destroy(asd,40f);
     }
 }

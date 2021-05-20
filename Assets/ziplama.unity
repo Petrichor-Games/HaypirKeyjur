@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20370613}
   m_LocalRotation: {x: -0, y: 0.7130729, z: -0, w: 0.7010899}
-  m_LocalPosition: {x: 1.12, y: -1.64, z: -1.9}
+  m_LocalPosition: {x: 1.12, y: -1.357, z: -1.9}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -252,7 +252,7 @@ MonoBehaviour:
   audioSource: {fileID: 20370620}
   clip: {fileID: 8300000, guid: b38d3dc89f588d543bd12d58c8c5e2cf, type: 3}
   camera: {fileID: 571212082}
-  movementSpeed: 2
+  movementSpeed: 3
   controlSpeed: 2
   minimum: -1.88194
   maximum: -2.775

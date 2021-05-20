@@ -15,9 +15,9 @@ public class playerController : MonoBehaviour
     [SerializeField] float controlSpeed;
 
     private Vector3 cameraNewPos;
-    
+
     public float minimum = -1.88194F;
-    public float maximum =  -2.775f;
+    public float maximum = -2.775f;
     static float t = 0.0f;
     private bool igroneNextCollision;
     private Collider test;
@@ -25,7 +25,8 @@ public class playerController : MonoBehaviour
     float touchPosX;
 
     private platformCreatorManager pCM;
-    
+    private float bironcekiY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,31 +43,40 @@ public class playerController : MonoBehaviour
         {
             touchPosX += Input.GetAxis("Mouse X") * controlSpeed * Time.fixedDeltaTime;
             transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
-           
+
         }
         //t += 0.5f * Time.deltaTime;
 
-        if (transform.position.y<-10f)
+        if (transform.position.y < -10f)
         {
             Debug.Log("�LD�N SEN");
         }
 
+        if (bironcekiY < transform.position.y)
+        {
+            GetComponent<SphereCollider>().isTrigger = true;
+        }
+        else
+        {
+            GetComponent<SphereCollider>().isTrigger = false;
+        }
         //camera.transform.position = new Vector3(camera.transform.position.x, Mathf.Lerp(camera.transform.position.y, cameraNewPos.y, t), camera.transform.position.z);
-        
-        
+
+
         camera.transform.position = new Vector3(
             0.76f,
-            Mathf.Clamp(transform.position.y, transform.position.y+ -10.87f, transform.position.y+ 30.3f),
+            Mathf.Clamp(transform.position.y, transform.position.y + -10.87f, transform.position.y + 30.3f),
             -10.06f);
-        
-        
-        
+
+        bironcekiY = transform.position.y;
+
+
         // if (t > 0.5f)
         // {
         //     t = 0.0f;
         // }
 
-        
+
         //float maxSpeed = 10;
         //rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
     }
@@ -78,16 +88,16 @@ public class playerController : MonoBehaviour
             {
                 return;
             }
-            
+
             //rb.velocity = Vector3.zero;
             //rb.AddForce(Vector3.up * 13, ForceMode.Impulse);
 
             rb.velocity = new Vector3(1, 50 * Time.deltaTime * 7, 500f);
             igroneNextCollision = true;
             Invoke("AllowCollision", .4f);
-            
+
             audioSource.PlayOneShot(clip, 1f);
-            if (birOncekiObj!=coll.collider.gameObject)
+            if (birOncekiObj != coll.collider.gameObject)
             {
                 //cameraNewPos = new Vector3(camera.transform.position.x, camera.transform.position.y + 2f, camera.transform.position.z);
 
@@ -95,12 +105,12 @@ public class playerController : MonoBehaviour
                 pCM.yeniPlatfromEkle();
             }
 
-            
+
             birOncekiObj = coll.collider.gameObject;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
         test = other;
         Invoke("TrigeriDegistir", .075f);
@@ -109,7 +119,7 @@ public class playerController : MonoBehaviour
     private void TrigeriDegistir()
     {
         test.GetComponent<MeshCollider>().isTrigger = false;
-    }
+    }*/
 
 
     private void AllowCollision()
