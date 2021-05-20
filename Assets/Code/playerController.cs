@@ -21,6 +21,10 @@ public class playerController : MonoBehaviour
     static float t = 0.0f;
     private bool igroneNextCollision;
     private Collider test;
+    
+    public Animation ezilmeAnim;
+
+    private Animator anim;
 
     float touchPosX;
 
@@ -32,6 +36,7 @@ public class playerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pCM = GameObject.Find("platformCreatorManager").GetComponent<platformCreatorManager>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -91,6 +96,8 @@ public class playerController : MonoBehaviour
 
             //rb.velocity = Vector3.zero;
             //rb.AddForce(Vector3.up * 13, ForceMode.Impulse);
+            //ezilmeAnim.Play("ezilme");
+            anim.SetTrigger("EzilmeTrigger");
 
             rb.velocity = new Vector3(1, 50 * Time.deltaTime * 7, 500f);
             igroneNextCollision = true;
@@ -124,6 +131,7 @@ public class playerController : MonoBehaviour
 
     private void AllowCollision()
     {
+       
         igroneNextCollision = false;
     }
 }
