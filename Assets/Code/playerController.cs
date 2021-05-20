@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour
     public float minimum = -1.88194F;
     public float maximum =  -2.775f;
     static float t = 0.0f;
+    private bool igroneNextCollision;
 
 
     float touchPosX;
@@ -72,7 +73,18 @@ public class playerController : MonoBehaviour
     {
         if (coll.collider.CompareTag("platform"))
         {
-            rb.AddForce(Vector3.up * 13, ForceMode.Impulse);
+            if (igroneNextCollision)
+            {
+                return;
+            }
+            
+            //rb.velocity = Vector3.zero;
+            //rb.AddForce(Vector3.up * 13, ForceMode.Impulse);
+
+            rb.velocity = new Vector3(0, 50 * Time.deltaTime * 10, 0);
+            igroneNextCollision = true;
+            Invoke("AllowCollision", .6f);
+            
             audioSource.PlayOneShot(clip, 1f);
             if (birOncekiObj!=coll.collider.gameObject)
             {
@@ -85,5 +97,10 @@ public class playerController : MonoBehaviour
             
             birOncekiObj = coll.collider.gameObject;
         }
+    }
+
+    private void AllowCollision()
+    {
+        igroneNextCollision = false;
     }
 }
