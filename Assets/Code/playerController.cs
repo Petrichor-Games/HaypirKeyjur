@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,7 @@ public class playerController : MonoBehaviour
     public float maximum =  -2.775f;
     static float t = 0.0f;
     private bool igroneNextCollision;
-
+    private Collider test;
 
     float touchPosX;
 
@@ -66,8 +67,8 @@ public class playerController : MonoBehaviour
         // }
 
         
-        float maxSpeed = 10;
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+        //float maxSpeed = 10;
+        //rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
     }
     private void OnCollisionEnter(Collision coll)
     {
@@ -81,9 +82,9 @@ public class playerController : MonoBehaviour
             //rb.velocity = Vector3.zero;
             //rb.AddForce(Vector3.up * 13, ForceMode.Impulse);
 
-            rb.velocity = new Vector3(0, 50 * Time.deltaTime * 10, 0);
+            rb.velocity = new Vector3(1, 50 * Time.deltaTime * 7, 500f);
             igroneNextCollision = true;
-            Invoke("AllowCollision", .6f);
+            Invoke("AllowCollision", .4f);
             
             audioSource.PlayOneShot(clip, 1f);
             if (birOncekiObj!=coll.collider.gameObject)
@@ -98,6 +99,18 @@ public class playerController : MonoBehaviour
             birOncekiObj = coll.collider.gameObject;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        test = other;
+        Invoke("TrigeriDegistir", .075f);
+    }
+
+    private void TrigeriDegistir()
+    {
+        test.GetComponent<MeshCollider>().isTrigger = false;
+    }
+
 
     private void AllowCollision()
     {
