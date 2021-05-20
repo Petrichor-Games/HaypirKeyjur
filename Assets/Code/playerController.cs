@@ -21,10 +21,14 @@ public class playerController : MonoBehaviour
 
 
     float touchPosX;
+
+    private platformCreatorManager pCM;
+    
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        pCM = GameObject.Find("platformCreatorManager").GetComponent<platformCreatorManager>();
     }
 
     // Update is called once per frame
@@ -38,19 +42,27 @@ public class playerController : MonoBehaviour
             transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
            
         }
-        t += 0.5f * Time.deltaTime;
+        //t += 0.5f * Time.deltaTime;
 
         if (transform.position.y<-10f)
         {
             Debug.Log("�LD�N SEN");
         }
 
-        camera.transform.position = new Vector3(camera.transform.position.x, Mathf.Lerp(camera.transform.position.y, cameraNewPos.y, t), camera.transform.position.z);
+        //camera.transform.position = new Vector3(camera.transform.position.x, Mathf.Lerp(camera.transform.position.y, cameraNewPos.y, t), camera.transform.position.z);
         
-        if (t > 0.5f)
-        {
-            t = 0.0f;
-        }
+        
+        camera.transform.position = new Vector3(
+            0.76f,
+            Mathf.Clamp(transform.position.y, transform.position.y+ -10.87f, transform.position.y+ 30.3f),
+            -10.06f);
+        
+        
+        
+        // if (t > 0.5f)
+        // {
+        //     t = 0.0f;
+        // }
 
         
         float maxSpeed = 10;
@@ -64,7 +76,10 @@ public class playerController : MonoBehaviour
             audioSource.PlayOneShot(clip, 1f);
             if (birOncekiObj!=coll.collider.gameObject)
             {
-                cameraNewPos = new Vector3(camera.transform.position.x, camera.transform.position.y + 2f, camera.transform.position.z);
+                //cameraNewPos = new Vector3(camera.transform.position.x, camera.transform.position.y + 2f, camera.transform.position.z);
+
+
+                pCM.yeniPlatfromEkle();
             }
 
             

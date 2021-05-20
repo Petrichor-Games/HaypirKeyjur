@@ -14,15 +14,28 @@ public class platformCreatorManager : MonoBehaviour
     void Start()
     {
         birOnceki = ilkPlatform.transform.position;
+
+        for (int i = 0; i < 4; i++)
+        {
+            yeniPlatfromEkle();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        
+        
+
+    }
+    
+    public void yeniPlatfromEkle()
+    {
         Vector3 yeniTransform;
         yeniTransform = new Vector3(Random.Range(-2f, 2f), birOnceki.y + 2f, birOnceki.z);
-        Instantiate(platformPrefab, yeniTransform, Quaternion.identity);
+        var asd = Instantiate(platformPrefab, yeniTransform, Quaternion.identity);
         birOnceki = yeniTransform;
-
+        Destroy(asd,15f);
     }
 }
