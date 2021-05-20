@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -14,11 +15,17 @@ public class playerController : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] float controlSpeed;
 
+    private int DegdigiPlatform;
+
     private Vector3 cameraNewPos;
 
     public float minimum = -1.88194F;
     public float maximum = -2.775f;
     static float t = 0.0f;
+
+    public GameObject text;
+
+    public int paraSayisi = 0;
     private bool igroneNextCollision;
     private Collider test;
     
@@ -27,6 +34,8 @@ public class playerController : MonoBehaviour
     private Animator anim;
 
     float touchPosX;
+
+    private Text skorYazi;
 
     private platformCreatorManager pCM;
     private float bironcekiY;
@@ -37,12 +46,15 @@ public class playerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         pCM = GameObject.Find("platformCreatorManager").GetComponent<platformCreatorManager>();
         anim = GetComponent<Animator>();
+        skorYazi = GameObject.Find("Yazi").GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
         rb.WakeUp();
+        skorYazi.text = "PARA: " + paraSayisi.ToString() +"   Platform : " +DegdigiPlatform.ToString();
+        
 
         if (Input.GetMouseButton(0))
         {
@@ -82,8 +94,8 @@ public class playerController : MonoBehaviour
         // }
 
 
-        //float maxSpeed = 10;
-        //rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+        float maxSpeed = 10;
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
     }
     private void OnCollisionEnter(Collision coll)
     {
@@ -107,6 +119,7 @@ public class playerController : MonoBehaviour
             if (birOncekiObj != coll.collider.gameObject)
             {
                 //cameraNewPos = new Vector3(camera.transform.position.x, camera.transform.position.y + 2f, camera.transform.position.z);
+                DegdigiPlatform++;
 
 
                 pCM.yeniPlatfromEkle();
@@ -115,14 +128,21 @@ public class playerController : MonoBehaviour
 
             birOncekiObj = coll.collider.gameObject;
         }
+
+       
     }
 
-    /*private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        test = other;
-        Invoke("TrigeriDegistir", .075f);
+        // test = other;
+        // Invoke("TrigeriDegistir", .075f);
+        if (other.CompareTag("PARA"))
+        {
+            paraSayisi++;
+            Destroy(other.gameObject);
+        }
     }
-
+/*
     private void TrigeriDegistir()
     {
         test.GetComponent<MeshCollider>().isTrigger = false;
