@@ -32,6 +32,10 @@ public class playerController : MonoBehaviour
     public Animation ezilmeAnim;
 
     private Animator anim;
+    
+    private SwerveInputSystem _swerveInputSystem;
+    [SerializeField] private float swerveSpeed = 0.5f;
+    [SerializeField] private float maxSwerveAmount = 1f;
 
     float touchPosX;
 
@@ -46,6 +50,7 @@ public class playerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _swerveInputSystem = GetComponent<SwerveInputSystem>();
         rb = GetComponent<Rigidbody>();
 		sphere = GetComponent<SphereCollider>();
         pCM = GameObject.Find("platformCreatorManager").GetComponent<platformCreatorManager>();
@@ -55,12 +60,22 @@ public class playerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
-        {
-            touchPosX += Input.GetAxis("Mouse X") * controlSpeed * Time.fixedDeltaTime;
-            transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
+        // if (Input.GetMouseButton(0))
+        // {
+        //     touchPosX += Input.GetAxis("Mouse X") * controlSpeed * Time.fixedDeltaTime;
+        //     transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
+        //
+        // }
+        // else
+        // {
+        //     touchPosX = 0;
+        // }
 
-        }
+        float swerveAmount = Time.deltaTime * swerveSpeed * _swerveInputSystem.MoveFactorX;
+        swerveAmount = Mathf.Clamp(swerveAmount, -maxSwerveAmount, maxSwerveAmount);
+        transform.Translate(0, 0, swerveAmount);
+        
+        
 		if (bironcekiY < transform.position.y)
         {
             sphere.isTrigger = true;

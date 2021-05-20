@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 20370619}
   - component: {fileID: 20370620}
   - component: {fileID: 20370621}
+  - component: {fileID: 20370622}
   m_Layer: 0
   m_Name: Player
   m_TagString: ball
@@ -260,6 +261,8 @@ MonoBehaviour:
   text: {fileID: 555637261}
   paraSayisi: 0
   ezilmeAnim: {fileID: 0}
+  swerveSpeed: 0.5
+  maxSwerveAmount: 1
   olmePlatformu: {fileID: 6575451531779511417, guid: f3a851a7b3f4fff4ab3fc243693b15f7, type: 3}
 --- !u!82 &20370620
 AudioSource:
@@ -376,6 +379,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &20370622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20370613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77de42c47c9754848bbf717558dc6433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &104345475
 GameObject:
   m_ObjectHideFlags: 0
