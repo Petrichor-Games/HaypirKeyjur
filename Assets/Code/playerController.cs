@@ -40,12 +40,14 @@ public class playerController : MonoBehaviour
     private platformCreatorManager pCM;
     private float bironcekiY;
     private GameObject ikiOnceki;
+	private SphereCollider sphere;
     public GameObject olmePlatformu;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+		sphere = GetComponent<SphereCollider>();
         pCM = GameObject.Find("platformCreatorManager").GetComponent<platformCreatorManager>();
         anim = GetComponent<Animator>();
         skorYazi = GameObject.Find("Yazi").GetComponent<Text>();
@@ -59,6 +61,15 @@ public class playerController : MonoBehaviour
             transform.position = new Vector3(touchPosX, transform.position.y, transform.position.z);
 
         }
+		if (bironcekiY < transform.position.y)
+        {
+            sphere.isTrigger = true;
+        }
+        else
+        {
+            sphere.isTrigger = false;
+        }
+		bironcekiY = transform.position.y;
     }
 
     // Update is called once per frame
@@ -76,14 +87,7 @@ public class playerController : MonoBehaviour
             Debug.Log("�LD�N SEN");
         }
 
-        if (bironcekiY < transform.position.y)
-        {
-            GetComponent<SphereCollider>().isTrigger = true;
-        }
-        else
-        {
-            GetComponent<SphereCollider>().isTrigger = false;
-        }
+        
         //camera.transform.position = new Vector3(camera.transform.position.x, Mathf.Lerp(camera.transform.position.y, cameraNewPos.y, t), camera.transform.position.z);
 
 
@@ -91,14 +95,6 @@ public class playerController : MonoBehaviour
             0.76f,
             Mathf.Clamp(transform.position.y, transform.position.y + -10.87f, transform.position.y + 30.3f),
             -10.06f);
-
-        bironcekiY = transform.position.y;
-
-
-        // if (t > 0.5f)
-        // {
-        //     t = 0.0f;
-        // }
 
 
         float maxSpeed = 10;
@@ -133,7 +129,8 @@ public class playerController : MonoBehaviour
 
                 if(ikiOnceki != null)
                 {
-                    Instantiate(olmePlatformu, ikiOnceki.transform.position, Quaternion.identity);
+                    var test = Instantiate(olmePlatformu, ikiOnceki.transform.position, Quaternion.identity);
+					Destroy(test, 15f);
                     Destroy(ikiOnceki);
 
                     

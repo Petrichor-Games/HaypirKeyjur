@@ -253,8 +253,8 @@ MonoBehaviour:
   audioSource: {fileID: 20370620}
   clip: {fileID: 8300000, guid: b38d3dc89f588d543bd12d58c8c5e2cf, type: 3}
   camera: {fileID: 571212082}
-  movementSpeed: 1
-  controlSpeed: 1
+  movementSpeed: 2
+  controlSpeed: 2
   minimum: -1.88194
   maximum: -2.775
   text: {fileID: 555637261}
